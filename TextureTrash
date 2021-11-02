@@ -1,0 +1,45 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TextureTrash : MonoBehaviour
+{
+    int texture;
+    public GameObject sprite1;
+    public GameObject sprite2;
+    public GameObject sprite3;
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        texture = Random.Range(1, 4);
+        if (texture == 1)
+        {
+            Destroy(sprite2);
+            Destroy(sprite3);
+        }
+        if (texture == 2)
+        {
+            Destroy(sprite3);
+            Destroy(sprite1);
+        }
+        if (texture == 3)
+        {
+            Destroy(sprite1);
+            Destroy(sprite2);
+        }
+        if (texture == 4)
+        {
+            Destroy(sprite1);
+            Destroy(sprite2);
+            
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}
