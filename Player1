@@ -1,0 +1,93 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using UnityEngine.SceneManagement;
+
+public class Player1 : MonoBehaviour
+{
+    public float velocidad;
+    public float points1;
+    public TMP_Text text;
+    bool pause;
+    public GameObject espuma;
+    public GameObject Resume;
+    public GameObject Quit;
+    public GameObject Pause;
+    float timer;
+    
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        pause = false;
+        Resume.SetActive(false);
+        Quit.SetActive(false);
+        Pause.SetActive(false);
+        points1 = 0;
+    }
+
+    // Update is called once per frame
+    
+    void Update()
+    {
+        timer += Time.deltaTime;
+        if (timer <= 0.1f) { points1 = 0; }
+        if (!pause)
+        {
+            if (Input.GetKey("w"))
+            {
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, velocidad * Time.deltaTime * 1000));
+                Instantiate(espuma, transform.position, Quaternion.identity);
+            }
+            if (Input.GetKey("s"))
+            {
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0f, velocidad * Time.deltaTime * -1000));
+                Instantiate(espuma, transform.position, Quaternion.identity);
+            }
+            if (Input.GetKey("a"))
+            {
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(velocidad * Time.deltaTime * -1000, 0f));
+                Instantiate(espuma, transform.position, Quaternion.identity);
+            }
+            if (Input.GetKey("d"))
+            {
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(velocidad * Time.deltaTime * 1000, 0f));
+                Instantiate(espuma, transform.position, Quaternion.identity);
+            }
+            text.text = points1 + "";
+        }
+        if (Input.GetKeyDown("escape"))
+        {
+            pause = true;
+            Resume.SetActive(true);
+            Quit.SetActive(true);
+            Pause.SetActive(true);
+        }
+        
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "trash")
+        {
+            RaisePoints1();
+            
+        }
+    }
+    public void RaisePoints1()
+    {
+        points1 += .5f;
+    }
+    public void Continue()
+    {
+        pause = false;
+        Resume.SetActive(false);
+        Quit.SetActive(false);
+        Pause.SetActive(false);
+    }
+    public void QuitToMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+}
