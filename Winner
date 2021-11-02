@@ -1,0 +1,44 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class Winner : MonoBehaviour
+{
+    public Player1 score1;
+    public Player2 score2;
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        //score1 = GameObject.Find("points").GetComponent<Player1>();
+        //score2 = GameObject.Find("points").GetComponent<Player2>();
+    }
+
+    float timer;// Update is called once per frame
+    void Update()
+    {
+        timer += Time.deltaTime;
+
+        if (timer >= 80)
+        {
+            score1 = FindObjectOfType<Player1>();
+            score2 = FindObjectOfType<Player2>();
+            Debug.Log(score1.points1);
+            Debug.Log(score2.points2);
+            if (score1.points1 >= score2.points2)
+            {
+                SceneManager.LoadScene(2);
+            }
+            if (score1.points1 <= score2.points2)
+            {
+                SceneManager.LoadScene(3);
+            }
+            if (score1.points1 == score2.points2)
+            {
+                SceneManager.LoadScene(4);
+            }
+        }
+    }
+}
