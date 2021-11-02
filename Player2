@@ -14,6 +14,7 @@ public class Player2 : MonoBehaviour
     public GameObject Resume;
     public GameObject Quit;
     float timer;
+    public GameObject SFX;
 
     // Start is called before the first frame update
     void Start()
@@ -63,10 +64,10 @@ public class Player2 : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "trash")
+        if (collision.gameObject.tag == "trash" && timer >= 0.1f)
         {
             RaisePoints2();
-
+            Instantiate(SFX);
         }
     }
     public void RaisePoints2()
@@ -84,3 +85,4 @@ public class Player2 : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 }
+
