@@ -1,0 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TrashSpawner : MonoBehaviour
+{
+    public int amount;
+    public GameObject island;
+    // Start is called before the first frame update
+    void Start()
+    {
+        for (int x = -amount; x <= amount; x++)
+            for (int y = -amount; y <= amount; y++)
+            {
+                Instantiate(island, new Vector3(x, y, 0), Quaternion.identity);
+            }
+    }
+}
